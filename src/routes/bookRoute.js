@@ -108,7 +108,7 @@ router.get("/", protectRoute, async (req, res) => {
         res.json(books);
     } catch (error) {
         console.log("Get user books user:", error.message);
-        res.status(500).join({ message: "Server Error" });
+        res.status(500).json({ message: "Server Error" });
     }
 })
 
