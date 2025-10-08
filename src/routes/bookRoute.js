@@ -45,8 +45,8 @@ router.post("/", protectRoute, async (req, res) => {
 //const response=await fetch("http://localhost:3000/api/book/page=1&limit=5");
 router.get("/", protectRoute, async (req, res) => {
     try {
-        const page = req.params.page || 1
-        const limit = req.params.limit || 1
+        const page = parseInt(req.query.page) || 1;      // ParseInt converts string to int
+        const limit = parseInt(req.query.limit) || 5;
         const skip = (page - 1) * limit
 
         const books = await Book.find()
@@ -105,7 +105,7 @@ router.delete("/:id", protectRoute, async (req, res) => {
 router.get("/user", protectRoute, async (req, res) => {
     try {
         const books = await Book.find({ user: req.user._id })
-        .sort({ createdAt: -1 })
+            .sort({ createdAt: -1 })
         res.json(books);
     } catch (error) {
         console.log("Get user books user:", error.message);
