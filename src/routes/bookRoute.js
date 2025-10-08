@@ -104,7 +104,8 @@ router.delete("/:id", protectRoute, async (req, res) => {
 //your Recomendation in your profile -> const response=await fetch("http://localhost:3000/api/books/user") 
 router.get("/user", protectRoute, async (req, res) => {
     try {
-        const books = (await Book.find({ user: req.user._id })).sort({ createdAt: -1 })
+        const books = await Book.find({ user: req.user._id })
+        .sort({ createdAt: -1 })
         res.json(books);
     } catch (error) {
         console.log("Get user books user:", error.message);
